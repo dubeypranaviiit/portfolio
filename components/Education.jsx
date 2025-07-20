@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const educationList = [
   {
     degree: "B.Tech in Electronics and Communication Engineering",
-    institution: "Indian Institute of Information Technology",
+    institution: "Indian Institute of Information Technology Ranchi (IIITR) ",
     duration: "2023 – 2027",
     logo: "/assets/iiitr.png",
   },
