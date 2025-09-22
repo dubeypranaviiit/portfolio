@@ -71,7 +71,7 @@ const Hero = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   href="/resume.pdf"
-                  target="_blank"
+                  download="Pranav_Abhimanyu_Resume.pdf"
                   className="px-8 py-3 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300"
                 >
                   Download Resume
