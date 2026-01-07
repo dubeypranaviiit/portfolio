@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 Pranav Abhimanyu — Developer Portfolio
 
-## Getting Started
+A modern, responsive, and high-performance **developer portfolio website** built using **Next.js 15 (App Router)**.  
+This portfolio showcases my **skills, projects, and experience** with clean UI, smooth animations, and a scalable backend contact system.
 
-First, run the development server:
+🌐 **Live Website:**  
+https://pranav-abhimanyu.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+📦 **GitHub Repository:**  
+https://github.com/dubeypranaviiit/portfolio
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ⚡ Built with **Next.js 15 (App Router)**
+- 🎨 Modern UI using **Tailwind CSS**
+- 🎥 Smooth animations with **Framer Motion**
+- 🧭 Smooth scrolling navigation
+- 📩 Fully functional **Contact Form API**
+- 🗄️ MongoDB integration for contact storage
+- 📱 Fully responsive (Mobile → Desktop)
+- 🚀 Deployed on **Vercel**
+- 🛠️ Clean and scalable architecture
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧑‍💻 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Frontend
+- Next.js 15
+- React 19
+- JavaScript 
+- Tailwind CSS
+- Framer Motion
+- React Icons
+- Typewriter Effect
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Backend
+- Next.js API Routes
+- MongoDB
+- Mongoose
+- Axios
 
-## Deploy on Vercel
+### DevOps & Tools
+- Vercel
+- Docker
+- Git & GitHub
+- ESLint
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📂 Folder Structure
+
+```txt
+app/
+├── admin/
+├── api/
+│   └── contact/
+│       └── route.js
+├── globals.css
+├── layout.js
+├── page.js
+
+components/
+containers/
+data/
+
+database/
+├── contact.modal.js
+└── db.js
+
+public/
+├── assets/
+├── resume.pdf
+├── globe.svg
+├── next.svg
+└── window.svg
+
+.env.local
+Dockerfile
+next.config.mjs
+package.json
+README.md
