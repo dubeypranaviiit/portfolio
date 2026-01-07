@@ -59,6 +59,30 @@ const projects = [
   year: 2025,
   github: "", 
   demo: ""  
+},
+  {
+  id: 5,
+  title: "EcoRevive – AI-Powered Waste Management Platform",
+  description: "A full-stack sustainability platform that allows users to report waste, verify it using AI-based image analysis, earn rewards, and contribute to environmental initiatives through secure donations. Built with scalable backend architecture, role-based authentication, and real-time payment tracking.",
+  image: "/assets/ecorevive-user.png",
+  technologies: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "MongoDB",
+    "Mongoose",
+    "Clerk",
+    "Stripe",
+    "Razorpay",
+    "Google Gemini API",
+    "Google Maps API",
+    "Zustand"
+  ],
+  type: "Sustainability Platform",
+  year: 2025,
+  github: "https://github.com/dubeypranaviiit/eco",
+  demo: "https://ecorevive-wm.vercel.app/"
 }
 
 
