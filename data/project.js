@@ -83,7 +83,33 @@ const projects = [
   year: 2025,
   github: "https://github.com/dubeypranaviiit/eco",
   demo: "https://ecorevive-wm.vercel.app/"
+},
+  {
+  id: 6,
+  title: "EduTrack – Full-Stack Learning Management System (LMS)",
+  description: "A full-featured learning management system supporting courses, chapters, quizzes, assignments, certifications, and role-based access for students, instructors, and admins. Includes secure Stripe-based enrollments, progress tracking, reviews, and a modern dashboard-driven learning experience.",
+  image: "/assets/edutrack-user.png",
+  technologies: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "MongoDB",
+    "Mongoose",
+    "Clerk",
+    "Stripe",
+    "Cloudinary",
+    "Zustand",
+    "Zod",
+    "Radix UI",
+    "Framer Motion"
+  ],
+  type: "Learning Management System",
+  year: 2025,
+  github: "https://github.com/dubeypranaviiit/edu-track", 
+  demo: ""
 }
+
 
 
 ];
