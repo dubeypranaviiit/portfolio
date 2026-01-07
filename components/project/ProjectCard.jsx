@@ -52,7 +52,7 @@ const ProjectCard = ({ project, setSelectedProject }) =>{
       <div className="flex justify-between items-center">
         <div className="flex gap-4">
     
-          {[project.github, project.demo].map((link, idx) => (
+          {/* {[project.github, project.demo].map((link, idx) => (
   <motion.button
     key={idx}
     whileHover={{ scale: 1.1 }}
@@ -67,7 +67,36 @@ const ProjectCard = ({ project, setSelectedProject }) =>{
   >
     {idx === 0 ? <FiGithub size={20} /> : <FiExternalLink size={20} />}
   </motion.button>
-))}
+))} */}
+{[
+  { url: project.github, label: "GitHub" },
+  { url: project.demo, label: "Demo" },
+]
+  .filter(item => item.url && item.url.trim() !== "")
+  .map(item => (
+    <motion.button
+      key={item.label}
+      type="button"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => {
+        window.open(item.url, "_blank", "noopener,noreferrer");
+      }}
+      className={`${
+        item.label === "GitHub"
+          ? "text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300"
+          : "text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+      } transition cursor-pointer`}
+      aria-label={item.label}
+    >
+      {item.label === "GitHub" ? (
+        <FiGithub size={20} />
+      ) : (
+        <FiExternalLink size={20} />
+      )}
+    </motion.button>
+  ))}
+
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
