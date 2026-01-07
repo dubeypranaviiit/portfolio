@@ -46,6 +46,7 @@ const Hero = () => {
                   options={{
                      strings: [
         "MERN Stack Developer",
+          "NextJs Developer",
         "Crafting Scalable Web Platforms",
         "Building EdTech, SaaS & Real-World Apps",
         "Code. Architect. Deliver.",

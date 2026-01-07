@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+
+// Font Awesome
 import {
   FaReact,
   FaNodeJs,
@@ -9,7 +11,10 @@ import {
   FaServer,
   FaDocker,
   FaAws,
+  FaLayerGroup,
 } from "react-icons/fa";
+
+// Simple Icons
 import {
   SiMongodb,
   SiExpress,
@@ -18,39 +23,52 @@ import {
   SiShadcnui,
   SiVercel,
   SiKubernetes,
-  SiJenkins,
   SiPostman,
-  SiLinux,
-  SiTerraform,
+  SiNextdotjs,
+  SiTypescript,
+  SiPostgresql,
+  SiMongoose,
+  SiGoogle,
+  SiStripe,
+  SiRazorpay,
+  SiZod,
 } from "react-icons/si";
-import { TbHierarchy } from "react-icons/tb"; // for LLD icon
+
+// Tabler Icons
+import {
+  TbBrain,
+  TbPhotoScan,
+  TbScan,
+  TbApi,
+  TbHierarchy,
+} from "react-icons/tb";
 
 const skills = [
-  // Full Stack
   { name: "MERN Stack", icon: <FaServer /> },
   { name: "React", icon: <FaReact /> },
+  { name: "Next.js", icon: <SiNextdotjs /> },
+  { name: "TypeScript", icon: <SiTypescript /> },
+  { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+  { name: "shadcn/ui", icon: <SiShadcnui /> },
   { name: "Node.js", icon: <FaNodeJs /> },
   { name: "Express.js", icon: <SiExpress /> },
   { name: "MongoDB", icon: <SiMongodb /> },
+  { name: "Mongoose", icon: <SiMongoose /> },
   { name: "MySQL", icon: <SiMysql /> },
-  { name: "Tailwind CSS", icon: <SiTailwindcss /> },
-  { name: "shadcn/ui", icon: <SiShadcnui /> },
-
+  { name: "PostgreSQL", icon: <SiPostgresql /> },,
+  { name: "Google Gemini API", icon: <SiGoogle /> },
+  { name: "REST APIs", icon: <TbApi /> },
+  { name: "Stripe", icon: <SiStripe /> },
+  { name: "Razorpay", icon: <SiRazorpay /> },
   { name: "Git", icon: <FaGitAlt /> },
   { name: "GitHub", icon: <FaGithub /> },
   { name: "Docker", icon: <FaDocker /> },
   { name: "Kubernetes", icon: <SiKubernetes /> },
-
-  { name: "AWS", icon: <FaAws /> },
-
-  
-  { name: "Postman", icon: <SiPostman /> },
-
-
   { name: "Vercel", icon: <SiVercel /> },
-
-
-  { name: "Low-Level Design (LLD)", icon: <TbHierarchy /> },
+  { name: "Postman", icon: <SiPostman /> },
+  { name: "Zustand (State Management)", icon: <FaLayerGroup /> },
+  { name: "Zod (Validation)", icon: <SiZod /> },
+  { name: "High-Level Design (HLD)", icon: <TbHierarchy /> },
 ];
 
 export default function Skills() {
@@ -66,7 +84,7 @@ export default function Skills() {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-       My Skills
+        My Skills
       </motion.h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
@@ -79,7 +97,9 @@ export default function Skills() {
             transition={{ duration: 0.5, delay: index * 0.05 }}
             viewport={{ once: true }}
           >
-            <div className="text-4xl mb-2 text-blue-400">{skill.icon}</div>
+            <div className="text-4xl mb-2 text-blue-400">
+              {skill.icon}
+            </div>
             <p className="text-sm font-medium text-white text-center">
               {skill.name}
             </p>

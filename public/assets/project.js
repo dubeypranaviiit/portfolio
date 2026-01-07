@@ -58,7 +58,7 @@ const projects = [
   type: "E-commerce Website",
   year: 2025,
   github: "https://github.com/dubeypranaviiit/edutom", 
-  demo: ""  
+  demo: "https://edutom.vercel.app/"  
 },
   {
   id: 5,

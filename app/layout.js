@@ -13,11 +13,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Pranav | Portfolio",
-  description: "created by Pranav Abhinmanyu",
-};
 
+export const metadata= {
+  title: "Pranav Abhimanyu | Full Stack Developer",
+  description: "Portfolio of Pranav Abhimanyu – Full Stack Developer & GenAI Enthusiast",
+  icons: {
+    icon: "/vercel.ico"
+  },
+};
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
