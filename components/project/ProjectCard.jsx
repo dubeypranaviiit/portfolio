@@ -13,19 +13,19 @@ const ProjectCard = ({ project, setSelectedProject }) =>{
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3 }}
-    className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl border border-gray-100 dark:border-gray-700 transition-all h-[530px]"
+    className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl border border-gray-100 dark:border-gray-700 transition-all overflow-hidden flex flex-col"
   >
     <div className="relative group">
       <img
         src={project.image}
         alt={project.title}
-        className="w-full h-50 object-cover transition-transform duration-300 group-hover:scale-105"
+        className="w-full h-48 md:h-56 lg:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
         loading="lazy"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
     </div>
-    <div className="p-6">
+    <div className="p-6 flex flex-col flex-1">
       <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400">
         {project.title}
       </h3>
@@ -50,7 +50,7 @@ const ProjectCard = ({ project, setSelectedProject }) =>{
           <Tech key={index} tech={tech} />
         ))}
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-auto">
         <div className="flex gap-4">
     
           {/* {[project.github, project.demo].map((link, idx) => (
@@ -99,13 +99,14 @@ const ProjectCard = ({ project, setSelectedProject }) =>{
   ))}
 
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            type="button"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setSelectedProject(project)}
-            className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
-            aria-label="Details"
+            className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+            aria-label="View More"
           >
-            <FiInfo size={20} />
+            View More
           </motion.button>
         </div>
         <span className="text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
