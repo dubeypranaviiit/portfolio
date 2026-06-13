@@ -85,33 +85,79 @@ const projects = [
   demo: "https://ecorevive-wm.vercel.app/"
 },
   {
-  id: 6,
-  title: "EduTrack – Full-Stack Learning Management System (LMS)",
-  description: "A full-featured learning management system supporting courses, chapters, quizzes, assignments, certifications, and role-based access for students, instructors, and admins. Includes secure Stripe-based enrollments, progress tracking, reviews, and a modern dashboard-driven learning experience.",
-  image: "/assets/edutrack-user.png",
-  technologies: [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-    "MongoDB",
-    "Mongoose",
-    "Clerk",
-    "Stripe",
-    "Cloudinary",
-    "Zustand",
-    "Zod",
-    "Radix UI",
-    "Framer Motion"
-  ],
-  type: "Learning Management System",
-  year: 2025,
-  github: "https://github.com/dubeypranaviiit/edu-track", 
-  demo: ""
-}
-
-
-
+    id: 6,
+    title: "EduTrack – Full-Stack Learning Management System (LMS)",
+    description: "A full-featured learning management system supporting courses, chapters, quizzes, assignments, certifications, and role-based access for students, instructors, and admins. Includes secure Stripe-based enrollments, progress tracking, reviews, and a modern dashboard-driven learning experience.",
+    image: "/assets/edutrack-user.png",
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "MongoDB",
+      "Mongoose",
+      "Clerk",
+      "Stripe",
+      "Cloudinary",
+      "Zustand",
+      "Zod",
+      "Radix UI",
+      "Framer Motion"
+    ],
+    type: "Learning Management System",
+    year: 2025,
+    github: "https://github.com/dubeypranaviiit/edu-track", 
+    demo: ""
+  },
+  {
+    id: 7,
+    title: "NextFlow – Visual AI Workflow Builder",
+    description: "An advanced visual workflow builder for LLM and image processing tasks. Users can build complex multi-node workflows, execute them in parallel using DAG ordering, view run history with node-level execution metrics, and import/export JSON configurations.",
+    image: "/assets/flow.png",
+    technologies: [
+      "Next.js",
+      "React Flow",
+      "TypeScript",
+      "Tailwind CSS",
+      "Zustand",
+      "Prisma",
+      "PostgreSQL",
+      "Clerk",
+      "Trigger.dev",
+      "Google Gemini API",
+      "Groq API",
+      "Transloadit",
+      "Sharp"
+    ],
+    type: "SaaS Workflow Builder",
+    year: 2025,
+    github: "https://github.com/dubeypranaviiit/NextFlow",
+    demo: "https://nextflow-new.vercel.app/"
+  },
+  {
+    id: 8,
+    title: "SwasthyaSewa – Smart Healthcare & Teleconsultation Platform",
+    description: "A complete clinic management and teleconsultation suite featuring a patient portal, a doctor/admin workstation dashboard, and a serverless Express API. Supports payment-protected video consultations, OTP verification, digital health cards, and automated refunds.",
+    image: "/assets/swasthyasewa.png",
+    technologies: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Mongoose",
+      "Tailwind CSS",
+      "Stream.io SDK",
+      "Razorpay",
+      "Nodemailer",
+      "Vite",
+      "Cloudinary"
+    ],
+    type: "Healthcare Platform",
+    year: 2025,
+    github: "https://github.com/dubeypranaviiit/Doctor-Appointment",
+    demo: ""
+  }
 ];
 
 export default projects;
+

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
-import { Contact } from "@/database/contact.modal";  
-import dbConnect from "@/database/db";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function POST(req) {
   try {
     const body = await req.json();
@@ -10,27 +12,33 @@ export async function POST(req) {
       return NextResponse.json({ error: "Name, email, and message are required" }, { status: 400 });
     }
 
-    await dbConnect();
+    const fromEmail = process.env.RESEND_FROM_EMAIL || "Contact Form <onboarding@resend.dev>";
+    const toEmail = process.env.RESEND_TO_EMAIL || "devlopmentw71@gmail.com";
+    
+    console.log("DEBUG RESEND: sending email from:", fromEmail, "to:", toEmail);
 
-    const contact = await  Contact.create({ name, email, phone, message });
+    const { data, error } = await resend.emails.send({
+      from: fromEmail,
+      to: toEmail,
+      subject: `New Portfolio Contact Message from ${name}`,
+      html: `
+        <h2>New Message Received</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone || "N/A"}</p>
+        <p><strong>Message:</strong></p>
+        <p style="white-space: pre-wrap;">${message}</p>
+      `,
+    });
 
-    return NextResponse.json({ message: "Message received successfully!", data: contact }, { status: 200 });
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json({ error: error.message || "Failed to send email" }, { status: 500 });
+    }
+
+    return NextResponse.json({ message: "Message sent successfully!", data }, { status: 200 });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
-  }
-}
-
-export async function GET() {
-  try {
-    await dbConnect();
-
-  
-    const messages = await Contact.find().sort({ createdAt: -1 });
-
-    return NextResponse.json({ data: messages }, { status: 200 });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "Failed to fetch messages" }, { status: 500 });
   }
 }

@@ -1,245 +1,236 @@
-// "use client";
-
-// import { useState } from "react";
-// import { FaUser, FaEnvelope, FaPhone } from "react-icons/fa";
-
-// const Contact=()=> {
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     email: "",
-//     phone: "",
-//     message: "",
-//   });
-
-//   const handleChange = (e) => {
-//     setFormData((prev) => ({
-//       ...prev,
-//       [e.target.name]: e.target.value,
-//     }));
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log(formData);
-//     // Handle submission (e.g., API call)
-//   };
-
-//   return (
-//     <section
-//       id="contact"
-//       className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white"
-//     >
-//       <div className="max-w-3xl mx-auto">
-//         <h2 className="text-4xl font-bold  text-center mb-12">
-//           Get in <span className="text-blue-500">Touch</span>
-//         </h2>
-
-//         <form
-//           onSubmit={handleSubmit}
-//           className="bg-gray-800/60 backdrop-blur-md rounded-2xl shadow-2xl p-8 space-y-8"
-//         >
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-//             <div className="space-y-2">
-//               <label htmlFor="name" className="text-sm font-medium">
-//                 Name <span className="text-red-500">*</span>
-//               </label>
-//               <div className="flex items-center gap-2 bg-gray-700 rounded-lg px-3 py-2 focus-within:ring-2 ring-blue-500">
-//                 <FaUser className="text-blue-400" />
-//                 <input
-//                   type="text"
-//                   name="name"
-//                   value={formData.name}
-//                   onChange={handleChange}
-//                   placeholder="Your Name"
-//                   className=" outline-none w-full text-white placeholder-gray-400"
-//                   required
-//                 />
-//               </div>
-//             </div>
-
-//             <div className="space-y-2">
-//               <label htmlFor="email" className="text-sm font-medium">
-//                 Email <span className="text-red-500">*</span>
-//               </label>
-//               <div className="flex items-center gap-2 bg-gray-700 rounded-lg px-3 py-2 focus-within:ring-2 ring-blue-500">
-//                 <FaEnvelope className="text-blue-400" />
-//                 <input
-//                   type="email"
-//                   name="email"
-//                   value={formData.email}
-//                   onChange={handleChange}
-//                   placeholder="you@example.com"
-//                   className="bg-transparent outline-none w-full text-white placeholder-gray-400"
-//                   required
-//                 />
-//               </div>
-//             </div>
-
-           
-//             <div className="space-y-2 md:col-span-2">
-//               <label htmlFor="phone" className="text-sm font-medium">
-//                 Phone <span className="text-gray-400">(optional)</span>
-//               </label>
-//               <div className="flex items-center gap-2 bg-gray-700 rounded-lg px-3 py-2 focus-within:ring-2 ring-blue-500">
-//                 <FaPhone className="text-blue-400" />
-//                 <input
-//                   type="tel"
-//                   name="phone"
-//                   value={formData.phone}
-//                   onChange={handleChange}
-//                   placeholder="+91 9876543210"
-//                   className="bg-transparent outline-none w-full text-white placeholder-gray-400"
-//                 />
-//               </div>
-//             </div>
-
-//             <div className="space-y-2 md:col-span-2">
-//               <label htmlFor="message" className="text-sm font-medium">
-//                 Message <span className="text-red-500">*</span>
-//               </label>
-//               <textarea
-//                 name="message"
-//                 value={formData.message}
-//                 onChange={handleChange}
-//                 rows={5}
-//                 placeholder="Write your message here..."
-//                 className="w-full bg-gray-700 text-white rounded-lg p-3 outline-none placeholder-gray-400 focus:ring-2 ring-blue-500"
-//                 required
-//               />
-//             </div>
-//           </div>
-
-//           <div className="text-center">
-//             <button
-//               type="submit"
-//               className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl transition-all shadow-md"
-//             >
-//               Send Message
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//     </section>
-//   );
-// }
-// export default Contact;
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
-import { FaUser, FaEnvelope, FaPhone } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaPaperPlane, FaCheckCircle } from "react-icons/fa";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
-
-  const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const formRef = useRef(null);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setSuccess("");
+    if (!formRef.current) return;
+
+    setIsSubmitting(true);
+    setError("");
 
     try {
-      const res = await axios.post("/api/contact", formData);
+      await axios.post("/api/contact", formData);
 
-      setSuccess(res.data.message);
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
-      console.error(err);
-      alert(err.response?.data?.error || "Something went wrong ");
+      console.error("Failed to send email:", err);
+      setError(
+        err.response?.data?.error || "Failed to send message. Please try again later."
+      );
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
+    <section id="contact" className="py-24 px-4 overflow-hidden bg-gray-900 text-white">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Get in <span className="text-blue-500">Touch</span>
-        </h2>
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+          className="mb-14 text-center"
+        >
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-3">Contact Me</h2>
+          <div className="w-20 h-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto"></div>
+        </motion.div>
 
-        <form onSubmit={handleSubmit} className="bg-gray-800/60 backdrop-blur-md rounded-2xl shadow-2xl p-8 space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="w-full">
+          {/* Contact form & Available work box */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
+            className="flex flex-col gap-6"
+          >
+            <div className="bg-gray-800/60 backdrop-blur-md rounded-3xl border border-gray-700 p-6 sm:p-8 relative overflow-hidden group shadow-lg hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-500">
+              {/* Subtle animated background glow */}
+              <div className="absolute -top-32 -right-32 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Name <span className="text-red-500">*</span></label>
-              <div className="flex items-center gap-2 bg-gray-700 rounded-lg px-3 py-2">
-                <FaUser className="text-blue-400" />
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Your Name"
-                  className="outline-none w-full text-white bg-transparent"
-                  required
-                />
-              </div>
+              <motion.h3
+                className="text-2xl font-bold text-white mb-6"
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
+                Send a Message <span className="text-blue-500 animate-pulse">✨</span>
+              </motion.h3>
+
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5 relative z-10">
+                {error && (
+                  <div className="p-3 bg-red-500/10 border border-red-500/50 rounded-xl text-red-500 text-sm">
+                    {error}
+                  </div>
+                )}
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.5 }}
+                  >
+                    <label htmlFor="name" className="block text-[13px] font-bold text-gray-400 mb-1.5 ml-1">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 rounded-2xl bg-gray-900 border border-gray-700 border-b-4 text-white 
+                      placeholder:text-gray-500 text-[15px] focus:outline-none focus:border-blue-500 
+                      transition-all duration-300 hover:border-gray-500 disabled:opacity-50"
+                      placeholder="John Doe"
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
+                  >
+                    <label htmlFor="email" className="block text-[13px] font-bold text-gray-400 mb-1.5 ml-1">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 rounded-2xl bg-gray-900 border border-gray-700 border-b-4 text-white 
+                      placeholder:text-gray-500 text-[15px] focus:outline-none focus:border-blue-500 
+                      transition-all duration-300 hover:border-gray-500 disabled:opacity-50"
+                      placeholder="john@example.com"
+                    />
+                  </motion.div>
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.7 }}
+                >
+                  <label htmlFor="message" className="block text-[13px] font-bold text-gray-400 mb-1.5 ml-1">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    required
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 rounded-2xl bg-gray-900 border border-gray-700 border-b-4 text-white 
+                    placeholder:text-gray-500 text-[15px] focus:outline-none focus:border-blue-500 
+                    transition-all duration-300 hover:border-gray-500 resize-none disabled:opacity-50"
+                    placeholder="Tell me about your project or just say hi..."
+                  />
+                </motion.div>
+
+                <motion.button
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.8 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isSubmitting || submitted}
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-blue-600 text-white 
+                  font-bold text-[15px] rounded-2xl hover:bg-blue-700 transition-all duration-300 
+                  shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(59,130,246,0.3)] shadow-blue-500/20 border-b-4 border-blue-700 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  <AnimatePresence mode="wait">
+                    {submitted ? (
+                      <motion.div
+                        key="success"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        className="flex items-center gap-2"
+                      >
+                        <FaCheckCircle className="w-5 h-5" />
+                        Message Sent!
+                      </motion.div>
+                    ) : isSubmitting ? (
+                      <motion.div
+                        key="loading"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        className="flex items-center gap-2"
+                      >
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Sending...
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="send"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        className="flex items-center gap-2"
+                      >
+                        <FaPaperPlane className="w-4 h-4" />
+                        Send Message
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              </form>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Email <span className="text-red-500">*</span></label>
-              <div className="flex items-center gap-2 bg-gray-700 rounded-lg px-3 py-2">
-                <FaEnvelope className="text-blue-400" />
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  className="outline-none w-full text-white bg-transparent"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2 md:col-span-2">
-              <label className="text-sm font-medium">Phone <span className="text-gray-400">(optional)</span></label>
-              <div className="flex items-center gap-2 bg-gray-700 rounded-lg px-3 py-2">
-                <FaPhone className="text-blue-400" />
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+91 9876543210"
-                  className="outline-none w-full text-white bg-transparent"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2 md:col-span-2">
-              <label className="text-sm font-medium">Message <span className="text-red-500">*</span></label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={5}
-                placeholder="Write your message here..."
-                className="w-full bg-gray-700 text-white rounded-lg p-3 outline-none"
-                required
-              />
-            </div>
-
-          </div>
-
-          <div className="text-center">
-            <button
-              type="submit"
-              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl"
-              disabled={loading}
+            {/* Available for Work Box */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="bg-gray-800/60 backdrop-blur-md rounded-3xl border border-gray-700 p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-md hover:shadow-lg transition-all duration-300"
             >
-              {loading ? "Sending..." : "Send Message"}
-            </button>
-            {success && <p className="mt-4 text-green-400">{success}</p>}
-          </div>
-        </form>
+              <div className="relative flex items-center justify-center w-16 h-16 mb-4">
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute inset-0 bg-green-500 rounded-full"
+                />
+                <div className="w-8 h-8 bg-green-500 rounded-full z-10 shadow-[0_0_15px_rgba(34,197,94,0.6)]"></div>
+              </div>
+
+              <h3 className="text-xl font-bold text-green-600 dark:text-green-500 mb-2 tracking-wide">Available for Work</h3>
+              <p className="text-gray-400 text-sm mb-5">Open to new opportunities and exciting projects</p>
+
+              <div className="px-4 py-1.5 border border-green-500/30 bg-green-500/10 text-green-600 dark:text-green-400 font-semibold text-xs rounded-full cursor-default hover:bg-green-500/20 transition-colors">
+                Accepting Projects
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
