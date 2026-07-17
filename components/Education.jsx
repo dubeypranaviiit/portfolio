@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import FadeIn from "./FadeIn";
 
 const educationList = [
   {
@@ -29,25 +27,20 @@ export default function Education() {
       id="educations"
       className="py-20 px-6 bg-[#0f172a] text-white transition-colors duration-500"
     >
-      <motion.h2
-        className="text-4xl font-bold text-center mb-14 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        Education
-      </motion.h2>
+      <FadeIn y={40} duration={0.6}>
+        <h2 className="text-4xl font-bold text-center mb-14 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+          Education
+        </h2>
+      </FadeIn>
 
       <div className="max-w-4xl mx-auto space-y-8">
         {educationList.map((edu, index) => (
-          <motion.div
+          <FadeIn
             key={index}
+            x={-50}
+            delay={index * 0.1}
+            duration={0.5}
             className="flex flex-col sm:flex-row items-center gap-6 bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
           >
             {edu.logo && (
               <img
@@ -64,7 +57,7 @@ export default function Education() {
                 <p className="text-sm text-gray-400">{edu.duration}</p>
               )}
             </div>
-          </motion.div>
+          </FadeIn>
         ))}
       </div>
     </section>

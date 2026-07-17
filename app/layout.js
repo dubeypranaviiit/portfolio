@@ -25,14 +25,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`min-h-screen bg-gray-900${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`min-h-screen bg-gray-900 ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SocialSidebar />
-         <main className="flex-1">{children}</main>
-       
-    
+        <main className="flex-1">{children}</main>
       </body>
-    
     </html>
   );
 }

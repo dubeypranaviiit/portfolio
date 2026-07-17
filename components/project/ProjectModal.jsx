@@ -27,7 +27,7 @@ const ProjectModal = ({ project, onClose }) => {
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-80 object-cover rounded-xl mb-6 shadow"
+            className="w-full h-48 sm:h-80 object-cover rounded-xl mb-6 shadow"
           />
           <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
             {project.description}
